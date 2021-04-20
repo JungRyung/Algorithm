@@ -20,6 +20,7 @@ int main(){
         cin >> tmp;
         num.push_back(tmp);
     }
+    
 
     // 입력받은 수를 정렬하기
     sort(num.begin(), num.end(), greater<int>());
