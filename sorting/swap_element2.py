@@ -6,16 +6,15 @@ arr_B = []
 arr_A = list(map(int,input().split()))
 arr_B = list(map(int,input().split()))
 
+arr_A.sort()
+arr_B.sort(reverse=True)
+
+
 for i in range(K):
-    arr_A.sort()
-    arr_B.sort()
-    if arr_A[0] < arr_B[-1]:
-        arr_A[0], arr_B[-1] = arr_B[-1], arr_A[0]
+    
+    if arr_A[i] < arr_B[i]:
+        arr_A[i], arr_B[i] = arr_B[i], arr_A[i]
     else:
         break
 
-sum = 0
-for A in arr_A:
-    sum += A
-
-print(sum)
+print(sum(arr_A))
