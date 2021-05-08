@@ -1,3 +1,5 @@
+# 팀 결성
+
 # 특정 원소가 속한 집합을 찾기
 def find_parent(parent, x):
     # 루트 노드가 아니라면, 루트 노드를 찾을 때까지 재귀적으로 호출
@@ -36,5 +38,6 @@ for i in range(n):
         else:
             result.append("NO")
 
+# 연산 결과 출력
 for i in result:
     print(i)
