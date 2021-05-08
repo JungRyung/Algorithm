@@ -1,2 +1,4 @@
 ########## excutable files ###########
 results/
+########## MacOS files ###############
+.DS_Store
