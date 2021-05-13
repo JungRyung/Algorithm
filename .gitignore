@@ -2,3 +2,5 @@
 results/
 ########## MacOS files ###############
 .DS_Store
+########## Jupyter Notebook###########
+.ipynb_checkpoints
