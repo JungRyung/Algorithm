@@ -14,6 +14,7 @@ def padding_move(key,hor,ver):
         ret_[i] = ret[M+i][M:2*M]
     return ret_
 
+"""
 def padding_move_numpy(key,hor,ver):
     M = len(key)
     # M-1 만큼 패딩한 배열 만들기
@@ -66,6 +67,7 @@ def move_down(key,step):
         for j in range(M):
             ret[i+step][j] = key[i][j]
     return ret
+"""
 
 def rotate_90(key):
     N = len(key)

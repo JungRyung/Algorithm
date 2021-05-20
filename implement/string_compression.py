@@ -22,12 +22,9 @@ def solution(s):
         result += tmp
         if len(result) < min_len:
             min_len = len(result)
-
     answer = min_len
-
     if len(s) == 1:
         answer = 1
-
     return answer
 
 s = ""
