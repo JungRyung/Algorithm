@@ -1,4 +1,4 @@
-##### 한국 조폐공사 #####
+##### 2021 ㅎㄱㅈㅍㄱㅅ #####
 def solution(money, costs):
     answer = 0
 
