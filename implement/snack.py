@@ -80,6 +80,7 @@ class Snake:
         self.queue.pop(0)
         return True
 
+# 입력 받기
 N = int(input())
 K = int(input())
 for _ in range(K):
@@ -92,17 +93,21 @@ for _ in range(L):
     l = tmp[1]
     move_queue.append((x,l))
 
-sn = Snake()
+
+sn = Snake()    # snake 클래스 선언
 flag = True
 time = 0
 while flag==True:
+    # 회전
     if len(move_queue) > 0:
         if time == move_queue[0][0]:
             sn.turn(move_queue[0][1])
             move_queue.pop(0)
+    # 사과가 있으면 사과 먹기
     if sn.queue[-1] in apple:
         apple.remove(sn.queue[-1])
         flag = sn.eatApple()
+    # 사과가 없으면 그냥 이동
     else:
         flag = sn.move()
     time += 1
