@@ -1,4 +1,5 @@
 from collections import deque
+import sys
 
 n, m, k, x = map(int, input().split())
 graph = [[] for _ in range(n+1)]
@@ -6,7 +7,7 @@ visit = [-1]*(n+1)
 results = []
 # 그래프를 인접리스트로 표현
 for _ in range(m):
-    start, destination = map(int, input().split())
+    start, destination = map(int, sys.stdin.readline().split())
     graph[start].append(destination)
 
 q = deque()
