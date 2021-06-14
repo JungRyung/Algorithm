@@ -1,4 +1,5 @@
 # 감시 피하기 ulr: www.acmicpc.net/problem/18428
+# 조합을 사용하거나 BFS 혹은 DFS로 모든 조합을 반환하거나
 from itertools import combinations
 import copy
 
