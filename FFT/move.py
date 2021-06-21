@@ -23,4 +23,5 @@ for i in range(n):
     x = move(x,1)
     max_score = max(max_score, get_score(x,y))
 print(max_score)
-        
+ 
+
