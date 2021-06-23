@@ -4,11 +4,19 @@
 #include <complex>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 using namespace std;
  
 #define sz(v) ((int)(v).size())
 #define all(v) (v).begin(),(v).end()
 typedef complex<double> base;
+
+template <typename T>
+void print_vector(vector<T> a){
+    for(int i=0; i<a.size();i++)
+        cout << a[i] << " ";
+    cout << endl;
+}
  
 void fft(vector<base> &a, bool invert) {
     int n = sz(a);
@@ -18,6 +26,7 @@ void fft(vector<base> &a, bool invert) {
         j += bit;
         if (i < j) swap(a[i],a[j]);
     }
+    print_vector(a);
     for (int len=2;len<=n;len<<=1){
         double ang = 2*M_PI/len*(invert?-1:1);
         base wlen(cos(ang),sin(ang));
@@ -34,6 +43,7 @@ void fft(vector<base> &a, bool invert) {
     if (invert) {
         for (int i=0;i<n;i++) a[i] /= n;
     }
+    // print_vector(a);
 }
  
 void multiply(const vector<int> &a,const vector<int> &b,vector<int> &res) {
@@ -41,6 +51,8 @@ void multiply(const vector<int> &a,const vector<int> &b,vector<int> &res) {
     int n = 1;
     while (n < max(sz(a),sz(b))) n <<= 1;
     fa.resize(n); fb.resize(n);
+    // print_vector(fa);
+    // print_vector(fb);
     fft(fa,false); fft(fb,false);
     for (int i=0;i<n;i++) fa[i] *= fb[i];
     fft(fa,true);
@@ -63,7 +75,7 @@ int main() {
     }
 
     multiply(a, b, res);
-
+    // print_vector(res);
     int ans = 0;
     for (int i=n;i<n*2;i++) {
         ans = max(ans, res[i]);
