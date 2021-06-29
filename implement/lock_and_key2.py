@@ -22,7 +22,7 @@ def check(padded_lock):
     n = len(padded_lock) // 3
     for i in range(n,2*n):
         for j in range(n,2*n):
-            if padded_lock != 1:
+            if padded_lock[i][j] != 1:
                 return False
     return True
 
