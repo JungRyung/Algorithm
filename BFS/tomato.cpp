@@ -16,6 +16,7 @@ int main(){
     int dy[] = {0,-1,0,1};
     int box[MAX_LEN][MAX_LEN] = {0};
     vector<pair<int,int>> ripe;
+    
     int n, m;
     
     cin >> m >> n;
