@@ -19,7 +19,7 @@ int distance_to[MAX_LEN][MAX_LEN];
 
 void dijkstra(int start){
     priority_queue<pair<int,int>> pq;
-    pq.push({0,start});
+    pq.push(make_pair(0,start));
     distance_to[start][start] = 0;
     while(!pq.empty()){
         int dist = -pq.top().first;
@@ -27,11 +27,13 @@ void dijkstra(int start){
         pq.pop();
         if(distance_to[start][now] < dist)
             continue;
-        for(int i=0; i<graph[now].size(); i++){
-            int cost = distance_to[start][now] + graph[now][i].second;
-            if(cost < distance_to[start][graph[now][i].first]){
-                distance_to[start][graph[now][i].first] = cost;
-                pq.push(make_pair(-cost,graph[now][i].first));
+        for(auto i=graph[now].begin(); i!=graph[now].end(); i++){
+            int next = (*i).first;
+            int next_dist = (*i).second;
+            int cost = distance_to[start][now] + next_dist;
+            if(cost < distance_to[start][next]){
+                distance_to[start][next] = cost;
+                pq.push(make_pair(-cost,next));
             }
         }
     }
