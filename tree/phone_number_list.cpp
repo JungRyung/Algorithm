@@ -6,14 +6,18 @@ DATE    : 21.07.14
 #include <iostream>
 #include <string>
 #include <string.h>
+#include <vector>
 
 using namespace std;
 
 struct Node{
     bool is_end;
     Node *next[10];
-    Node():is_end(false){
-        memset(next,0,sizeof(next));
+    Node(){
+        is_end = false;
+        for(int i=0; i < 10; i++){
+            next[i] = nullptr;
+        }
     }
     ~Node(){
         for(int i=0; i < 10; ++i){
@@ -30,19 +34,28 @@ public:
     Dictree(){
         root = new Node;
     }
-    bool insert(Node *curr,char* num){
-        cout << curr->is_end;
-        if(curr->is_end)
-            return false;
-        if(*num == '\n'){
+    void insert(Node *curr,char* num){
+        if(*num == '\0')
             curr->is_end = true;
-            return true;
-        }
         else{
             int curr_num = *num - '0';
             if(curr->next[curr_num]==nullptr)
                 curr->next[curr_num] = new Node;
             return insert(curr->next[curr_num], num + 1);
+        }
+    }
+    bool is_valid(Node *curr, char* num){
+        if(curr->is_end && *num != '\0'){
+            return false;
+        }else if(curr->is_end && *num == '\0'){
+            return true;
+        }else{
+            int curr_num = *num - '0';
+            if(curr->next[curr_num]==nullptr){
+                printf("number is not in\n");
+                return false;
+            }
+            return is_valid(curr->next[curr_num], num + 1);
         }
     }
     Node* get_root(){
@@ -55,18 +68,29 @@ int main(){
     scanf("%d",&t);
     while(t--){
         int n=0;
+        bool is_valid = true;
+        vector<string> numbers;
         scanf("%d",&n);
+        cin.ignore();
         Dictree tree;
         for(int i=0; i<n; i++){
-            char* s;
-            scanf("%s",s);
-            bool valid = tree.insert(tree.get_root(),s);
-            if(valid)
-                printf("valid!\n");
-            else
-                printf("not valid!\n");
+            string s;
+            getline(cin,s);
+            numbers.push_back(s);
+            char* c = &s[0];
+            tree.insert(tree.get_root(),c);
         }
+        for(int i=0; i<n; i++){
+            string s = numbers[i];
+            char* c = &s[0];
+            is_valid = tree.is_valid(tree.get_root(),c);
+            if(!is_valid)
+                break;
+        }
+        if(is_valid)
+            printf("YES\n");
+        else
+            printf("NO\n");
     }
-
     return 0;
 }
