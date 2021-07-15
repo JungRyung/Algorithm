@@ -12,20 +12,26 @@ using namespace std;
 struct Node{
     bool is_end;
     Node *next[10];
-    Node(){
-        is_end = false;
+    Node():is_end(false){
         memset(next,0,sizeof(next));
+    }
+    ~Node(){
+        for(int i=0; i < 10; ++i){
+			if(next[i])
+				delete next[i];
+		}
     }
 };
 
 class Dictree{
 private:
-    Node *root;
+    Node* root;
 public:
     Dictree(){
-        this->root = new Node;
+        root = new Node;
     }
     bool insert(Node *curr,char* num){
+        cout << curr->is_end;
         if(curr->is_end)
             return false;
         if(*num == '\n'){
@@ -36,11 +42,11 @@ public:
             int curr_num = *num - '0';
             if(curr->next[curr_num]==nullptr)
                 curr->next[curr_num] = new Node;
-            return this->insert(curr->next[curr_num], num + 1);
+            return insert(curr->next[curr_num], num + 1);
         }
     }
     Node* get_root(){
-        return this->root;
+        return root;
     }
 };
 
