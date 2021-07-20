@@ -12,12 +12,24 @@ adj = [[] for _ in range(n)]
 parent = [[-1]*MAX for _ in range(n)]
 depth = [-1] * n
 
-def make_tree(curr):
-    for next in adj[curr]:
-        if(depth[next] == -1):
-            depth[next] = depth[curr] + 1
-            parent[next][0] = curr
-            make_tree(next)
+
+s = []
+visit = [False]*n
+def make_tree(start):
+    s.append(start)
+    visit[start] = True
+    while s:
+        curr = s[-1]
+        searched = False
+        for next in adj[curr]:
+            if not visit[next]:
+                depth[next] = depth[curr] + 1
+                parent[next][0] = curr
+                visit[next] = True
+                s.append(next)
+                searched = True
+        if not searched:
+            s.pop(-1)
 
 for _ in range(n-1):
     a, b = map(int, sys.stdin.readline().split())
@@ -39,17 +51,20 @@ for _ in range(m):
     a, b = map(int, sys.stdin.readline().split())
     a-=1
     b-=1
-    if depth[a] != depth[b]:
-        if depth[a] > depth[b]:
-            a, b = b, a
-        for i in range(MAX-1,-1,-1):
-            if depth[a] <= depth[parent[b][i]]:
-                b = parent[b][i]
+    if depth[a] < depth[b]:
+        a, b = b, a
+    diff = depth[a] - depth[b]
+    i = 0
+    while diff:
+        if diff%2==1:
+            a = parent[a][i]
+        i += 1
+        diff /= 2
         
     if a != b:
-        for i in range(MAX-1,-1,-1):
-            if parent[a][i] != -1 and parent[a][i] != parent[b][i]:
-                a = parent[a][i]
-                b = parent[b][i]
+        for j in range(MAX-1,-1,-1):
+            if parent[a][j] != parent[b][j]:
+                a = parent[a][j]
+                b = parent[b][j]
         lca = parent[a][0]+1
     print(lca)
