@@ -19,22 +19,28 @@ class Btree:
     def make_tree(self, curr, preOrder, inOrder):
         curr.key = preOrder[0]
         index = inOrder.index(preOrder[0])
-        leftPre = []
-        rightPre = []
-        if len(preOrder) > 1:
-            for num in preOrder[1:]:
-                if num in inOrder[:index]:
-                    leftPre.append(num)
-                else:
-                    rightPre.append(num)
-            # left가 있을 때
-            if leftPre:
-                curr.left = Node()
-                self.make_tree(curr.left, leftPre, inOrder[:index])
-            # right가 있을 때
-            if rightPre:
-                curr.right = Node()
-                self.make_tree(curr.right, rightPre, inOrder[index+1:])
+        # leftPre = []
+        # rightPre = []
+        if index > 0:               # left가 있을 때
+            curr.left = Node()
+            self.make_tree(curr.left, preOrder[1:index+1], inOrder[:index])
+        if index < len(inOrder)-1:  # right가 있을 때
+            curr.right = Node()
+            self.make_tree(curr.right, preOrder[index+1:], inOrder[index+1:])
+        # if len(preOrder) > 1:
+        #     for num in preOrder[1:]:
+        #         if num in inOrder[:index]:
+        #             leftPre.append(num)
+        #         else:
+        #             rightPre.append(num)
+        #     # left가 있을 때
+        #     if leftPre:
+        #         curr.left = Node()
+        #         self.make_tree(curr.left, leftPre, inOrder[:index])
+        #     # right가 있을 때
+        #     if rightPre:
+        #         curr.right = Node()
+        #         self.make_tree(curr.right, rightPre, inOrder[index+1:])
     def postorder_trav(self,curr):
         if curr.left:
             self.postorder_trav(curr.left)
