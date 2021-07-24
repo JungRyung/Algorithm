@@ -1,6 +1,7 @@
 '''
 Title   : BFS와 DFS
 URL     : https://www.acmicpc.net/problem/1260
+DATE    : 21.07.24
 '''
 import sys
 
@@ -46,7 +47,7 @@ for _ in range(m):
     a, b = map(int, sys.stdin.readline().split())
     graph[a].append(b)
     graph[b].append(a)
-for i in range(n):
+for i in range(n+1):
     graph[i].sort()
 
 dfs(graph,v)
