@@ -11,27 +11,25 @@ dy = [0,-1,1,0]
 
 class baby_shark:
     def __init__(self):
-        self.size = 2
-        self.pos = (0, 0)
-        self.eat_cnt = 0
-        self.time = 0
+        self.__size = 2
+        self.__pos = (0, 0)
+        self.__eat_cnt = 0
+        self.__time = 0
     def get_size(self):
-        return self.size
-    def set_size(self, size):
-        self.size = size
+        return self.__size
     def get_pos(self):
-        return self.pos
+        return self.__pos
     def set_pos(self, x, y):
-        self.pos = (x, y)
+        self.__pos = (x, y)
     def get_time(self):
-        return self.time
+        return self.__time
     def plus_time(self,time):
-        self.time += time
+        self.__time += time
     def eat_feed(self):
-        self.eat_cnt += 1
-        if self.eat_cnt == self.size:
-            self.size += 1
-            self.eat_cnt = 0
+        self.__eat_cnt += 1
+        if self.__eat_cnt == self.__size:
+            self.__size += 1
+            self.__eat_cnt = 0
         
 n = int(sys.stdin.readline())
 area = [[]*n for _ in range(n)]
