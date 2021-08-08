@@ -22,3 +22,4 @@ while q:
             visit[next] = visit[curr]+1
 print(visit[k])
 print(cnt)
+
