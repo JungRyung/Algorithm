@@ -33,5 +33,5 @@ def bfs():
     return -1
 
 n, m = map(int, sys.stdin.readline().split())
-maze = [list(sys.stdin.readline().strip()) for _ in range(n)]
+maze = [list(map(int, sys.stdin.readline().strip()))for _ in range(n)]
 print(bfs())
