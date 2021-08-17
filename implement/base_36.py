@@ -9,5 +9,5 @@ n = int(sys.stdin.readline())
 numbers = []
 for _ in range(n):
     numbers.append(sys.stdin.readline().strip())
-print(numbers)
 k = int(sys.stdin.readline())
+
