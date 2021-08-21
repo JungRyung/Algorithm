@@ -21,6 +21,7 @@ for i in range(n):
         if lab[i][j] == 2:
             virus.append((i,j))
 # 조합 마다 bfs
+
 minTime = INF
 for comb in combinations(virus, m):
     print(comb)
