@@ -7,10 +7,8 @@ import sys
 from collections import deque
 
 def double(num):
-    res = num * 2
-    if res > 9999:
-        res %= 10000
-    return res
+    return num*2 % 10000
+    
 def sub(num):
     if num == 0:
         return 9999
