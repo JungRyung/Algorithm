@@ -8,7 +8,6 @@ from collections import deque
 
 f, s, g, u, d = map(int, sys.stdin.readline().split())
 
-
 def bfs():
     visit = [False]*1000001
     q = deque()
