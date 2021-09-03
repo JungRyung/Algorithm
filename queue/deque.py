@@ -40,3 +40,4 @@ for _ in range(n):
             print(deque.pop())
         else:
             print(-1)
+            
