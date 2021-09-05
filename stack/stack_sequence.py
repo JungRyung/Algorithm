@@ -31,3 +31,4 @@ if flag:
     print('\n'.join(command))
 else:
     print('NO')
+    
