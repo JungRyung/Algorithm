@@ -12,8 +12,8 @@ start = int(sys.stdin.readline())
 
 graph = [[] for _ in range(v+1)]
 for _ in range(e):
-    u, v, w = map(int, sys.stdin.readline().split())
-    graph[u].append((v,w))
+    a, b, w = map(int, sys.stdin.readline().split())
+    graph[a].append((b,w))
     
 distance = [INF] * (v+1)
 distance[start] = 0
@@ -31,4 +31,7 @@ while q:
             distance[next_node] = cost
             heapq.heappush(q,(cost,next_node))
 for i in range(1,v+1):
-    print(distance[i])
+    if distance[i] == INF:
+        print("INF")
+    else:
+        print(distance[i])
