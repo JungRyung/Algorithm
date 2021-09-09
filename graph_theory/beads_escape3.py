@@ -24,7 +24,7 @@ for i in range(n):
             blue_x, blue_y = i, j
 
 q = deque()
-q.append((red_x,red_y,blue_x,blue_y,0))
+q.append((red_x,red_y,blue_x,blue_y,0,''))
 visited.add((red_x,red_y,blue_x,blue_y))
 
 def move(x,y,i):
@@ -42,18 +42,31 @@ def move(x,y,i):
         return nx,ny,cnt+1
 
 min_depth = INF
+ans = ''
 while q:
-    rx,ry,bx,by,depth = q.popleft()
+    rx,ry,bx,by,depth,commands = q.popleft()
     for i in range(4):
         nrx,nry,rcnt = move(rx,ry,i)
         nbx,nby,bcnt = move(bx,by,i)
+        if i == 0:
+            nc = 'U'
+        elif i == 1:
+            nc = 'L'
+        elif i == 2:
+            nc = 'D'
+        else:
+            nc = 'R'
         # 다음 위치로 이동중에 구멍을 만나는 경우
         # 파란 구슬이 구멍에 빠지는 경우
         if board[nbx][nby] == 'O':
             continue
         # 빨간 구슬이 구멍에 빠지는 경우
         if board[nrx][nry] == 'O':
-            min_depth = min(min_depth, depth+1)
+            if min_depth > depth + 1:
+                commands = commands + nc
+                min_depth = depth + 1
+                ans = commands
+            continue
         # 구멍을 만나지 않고 구슬 둘 다 멈추는 경우
         # 빨간 구슬과 파란 구슬이 겹치는 경우
         if nrx == nbx and nry == nby:
@@ -68,8 +81,9 @@ while q:
                 
         if (nrx,nry,nbx,nby) not in visited:
             visited.add((nrx,nry,nbx,nby))
-            q.append((nrx,nry,nbx,nby,depth+1))
+            q.append((nrx,nry,nbx,nby,depth+1,commands + nc))
 if min_depth == INF or min_depth > 10:
     print(-1)
 else:
     print(min_depth)
+    print(ans)
