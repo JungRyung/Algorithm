@@ -39,28 +39,29 @@ for f in range(1 << m):
         for i in range(n):
             bolbs.append(arr[i][:])
 
-        print_bolbs(bolbs)
+        turned = [[False]*m for _ in range(n)]
 
         for i in range(m): 
             if f & 1<<i:
                 cnt += 1
+                turned[0][i] = True
                 for j in range(9):
-                    nx = 1 + dx[j]
-                    ny = i+1 + dy[j]
+                    nx = dx[j]
+                    ny = i + dy[j]
                     if 0<=nx<n and 0<=ny<m:
                         bolbs[nx][ny] = not bolbs[nx][ny]
         
         for i in range(n):
-            if g & 1<<i:
+            if g & 1<<i and turned[i][0] == False:
                 cnt += 1
                 for j in range(9):
-                    nx = i+1 + dx[j]
-                    ny = 1 + dy[j]
+                    nx = i + dx[j]
+                    ny = dy[j]
                     if 0<=nx<n and 0<=ny<m:
                         bolbs[nx][ny] = not bolbs[nx][ny]
         
-        for i in range(2,n):
-            for j in range(2,m):
+        for i in range(1,n):
+            for j in range(1,m):
                 if bolbs[i-1][j-1] == False:
                     cnt += 1
                     for k in range(9):
