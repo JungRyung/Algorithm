@@ -33,33 +33,46 @@ for i in range(n):
 
 ans = INF
 for f in range(1 << m):
-    cnt = 0
-    bolbs = []
-    for i in range(n):
-        bolbs.append(arr[i][:])
+    for g in range(1 << n):
+        cnt = 0
+        bolbs = []
+        for i in range(n):
+            bolbs.append(arr[i][:])
 
-    for i in range(m):
-        if f & 1<<i:
-            cnt += 1
-            for j in range(9):
-                nx = 0 + dx[j]
-                ny = i + dy[j]
-                if 0<=nx<n and 0<=ny<m:
-                    bolbs[nx][ny] = not bolbs[nx][ny]
-    
-    for i in range(1,n):
-        for j in range(m):
-            if bolbs[i-1][j] == False:
+        print_bolbs(bolbs)
+
+        for i in range(m): 
+            if f & 1<<i:
                 cnt += 1
-                for k in range(9):
-                    nx = i + dx[k]
-                    ny = j + dy[k]
+                for j in range(9):
+                    nx = 1 + dx[j]
+                    ny = i+1 + dy[j]
                     if 0<=nx<n and 0<=ny<m:
                         bolbs[nx][ny] = not bolbs[nx][ny]
+        
+        for i in range(n):
+            if g & 1<<i:
+                cnt += 1
+                for j in range(9):
+                    nx = i+1 + dx[j]
+                    ny = 1 + dy[j]
+                    if 0<=nx<n and 0<=ny<m:
+                        bolbs[nx][ny] = not bolbs[nx][ny]
+        
+        for i in range(2,n):
+            for j in range(2,m):
+                if bolbs[i-1][j-1] == False:
+                    cnt += 1
+                    for k in range(9):
+                        nx = i + dx[k]
+                        ny = j + dy[k]
+                        if 0<=nx<n and 0<=ny<m:
+                            bolbs[nx][ny] = not bolbs[nx][ny]
 
-    if False not in bolbs[-1]:
-        ans = min(ans, cnt)
-
+        for i in range(n):
+            if False not in bolbs[i]:
+                ans = min(ans, cnt)
+            
 if ans != INF:
     print(ans)
 else:
