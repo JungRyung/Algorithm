@@ -6,15 +6,15 @@ DATE    : 21.10.04
 import sys
 from collections import deque
 
-dx = [-1,0,0,1]
-dy = [0,-1,1,0]
+dx = [-1,0,1,0]
+dy = [0,-1,0,1]
 
 def print_lake(lake, r):
     for i in range(r):
         print(''.join(lake[i]))
     print()
 
-def melt(lake, melt_points):
+def melt(melt_points):
     next_melt_points = deque()
     while melt_points:
         x, y = melt_points.popleft()
@@ -24,7 +24,9 @@ def melt(lake, melt_points):
             ny = y + dy[i]
             if 0<=nx<r and 0<=ny<c and lake[nx][ny] == 'X':
                 next_melt_points.append((nx,ny))
-    return lake, next_melt_points
+    return next_melt_points
+        
+    
 
 r, c = map(int, sys.stdin.readline().split())
 lake = []
@@ -33,12 +35,6 @@ swan = []
 for i in range(r):
     tmp = list(sys.stdin.readline().strip())
     for j in range(c):
-        # 해당 지점이 얼음일 경우
-        if tmp[j] == 'X':
-            for k in range(1,3):
-                nx = i + dx[k]
-                ny = j + dy[k]
-                if 0<=
         # 해당 지점에 백조가 위치할 경우
         if tmp[j] == 'L':
             swan.append((i,j))
@@ -55,10 +51,12 @@ for i in range(r):
                 if 0<=nx<r and 0<=ny<c and lake[nx][ny] == 'X':
                     melt_points.append((i,j))
 
+print(swan)
 time = 0
 while True:
-    lake, melt_points = melt(lake, melt_points)
+    melt_points = melt(melt_points)
     time += 1
+    print_lake(lake, r)
     
     # BFS
     visit = [[False]*c for _ in range(r)]
@@ -75,11 +73,8 @@ while True:
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
-            if 0<=nx<r and 0<=ny<c and not visit[nx][ny]:
-                if lake[nx][ny] == 'X':
-                    melt_points.append((nx,ny))
-                else:
-                    q.append((nx,ny))
+            if 0<=nx<r and 0<=ny<c and not visit[nx][ny] and lake[nx][ny] != 'X':
+                q.append((nx,ny))
                 visit[nx][ny] = True
     if searched:
         break
