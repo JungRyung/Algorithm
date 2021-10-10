@@ -27,4 +27,5 @@ for _ in range(n):
     for __ in range(depth):
         nums.appendleft(s.pop())
     print(ohkeunsoo,end=' ')
+    
 print()
