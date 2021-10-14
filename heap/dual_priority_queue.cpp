@@ -171,7 +171,7 @@ template <class T>
 void SMMH<T>::DeleteMax(){
     if (last == 1){
         // throw "there are no elements in queue"; 
-    }else if (last == 2 or last == 3){
+    }else if (last == 2 || last == 3){
         last--;
     }else{
         // last > 3
