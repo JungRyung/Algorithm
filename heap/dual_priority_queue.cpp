@@ -1,6 +1,7 @@
 /*
-Data Structure  : Min-Max Heaps
-Date            : 21.10.13
+TITLE   : 이중 우선순위 큐
+URL     : https://www.acmicpc.net/problem/7662
+DATE    : 21.10.14
 */
 #include <iostream>
 #include <sstream>
@@ -19,33 +20,22 @@ void ChangeSize1D(T*& a, const int oldSize, const int newSize){
 }
 
 template <class T>
-class DEPQ{
-public:
-    virtual const T& GetMin() const = 0;
-    virtual const T& GetMax() const = 0;
-    virtual void Insert(const T&) = 0;
-    virtual void DeleteMin() = 0;
-    virtual void DeleteMax() = 0;
-};
-
-template <class T>
 class SMMH{
 public:
     SMMH(int initialCapacity = 10);
     ~SMMH() {delete []h;}
     
-    void QueueEmpty(){ cout << "QueueEmpty" << "\n";};
     void Display();
     void print_ans();
     const T& GetMin() const{
         // return min element
-        if(last == 1) throw QueueEmpty();
+        if(last == 1) throw "QueueEmpty";
         return h[2];
     }
 
     const T& GetMax() const{
         // return max element
-        if (last == 1) throw QueueEmpty();
+        if (last == 1) throw "QueueEmpty";
         if (last == 2) return h[2];
         else return h[3];
     }
@@ -70,7 +60,7 @@ template <class T>
 void SMMH<T>::print_ans(){
     // 힙에 아무것도 없을 때
     if (last == 1){
-        printf("EMPTY\n");
+        cout << "EMPTY\n";
     }else{
         cout << this->GetMax() << " " << this->GetMin() << "\n";
     }
@@ -227,35 +217,27 @@ void SMMH<T>::DeleteMax(){
     }
 }
 int main(){
-    SMMH<int> m(20);
-    m.Insert(20);
-    m.Insert(10);
-    m.Insert(40);
-    m.Insert(3);
-    m.Insert(2);
-    m.Insert(7);
-    m.Insert(60);
-    m.Insert(1);
-    m.Insert(80);
-    m.Display();
-    m.DeleteMax();
-    m.Display();
-    m.DeleteMax();
-    m.Display();
-    m.DeleteMax();
-    m.Display();
-    m.DeleteMax();
-    m.Display();
-    m.DeleteMax();
-    m.Display();
-    m.DeleteMax();
-    m.Display();
-    m.DeleteMax();
-    m.Display();
-    m.DeleteMax();
-    m.Display();
-    m.DeleteMax();
-    m.Display();
+    int t;
+    cin >> t;
+    while(t--){
+        SMMH<int> q(1000005);
+        int k;
+        cin >> k;
+        for(int i=0; i<k; i++){
+            char command;
+            int num;
+            cin >> command >> num;
+            if (command == 'I'){
+                q.Insert(num);
+            }else{
+                if (num == 1)
+                    q.DeleteMax();
+                else
+                    q.DeleteMin();
+            }
+        }
+        q.print_ans();
+    }
 
     return 0;
 }
