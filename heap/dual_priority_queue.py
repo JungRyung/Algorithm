@@ -152,3 +152,4 @@ for _ in range(int(sys.stdin.readline())):
             else:
                 q.deleteMin()
     q.printAnswer()
+
