@@ -12,17 +12,10 @@ requests = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
 requests.sort(key = lambda x : x[1])
 
 heap = []
-before = requests[0][1]
-ans = 0
 for request in requests:
     q, d = request
-    if before == d:
-        heapq.heappush(heap, -q)
-    else:
-        ans += -heap[0]
-        heap = []
-        heapq.heappush(heap, -q)
-        before = d
-if heap:
-    ans += -heap[0]
-print(ans)
+    heapq.heappush(heap, q)
+    if len(heap) > d:
+        heapq.heappop(heap)
+
+print(sum(heap))
