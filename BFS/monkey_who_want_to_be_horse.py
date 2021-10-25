@@ -40,6 +40,5 @@ def bfs():
                     visit[nx][ny] = True
                     q.append((nx,ny,t+1,jump+1))
     return -1
-
 ans = bfs()
 print(ans)
