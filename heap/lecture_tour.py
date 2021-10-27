@@ -17,5 +17,4 @@ for request in requests:
     heapq.heappush(heap, q)
     if len(heap) > d:
         heapq.heappop(heap)
-
 print(sum(heap))
