@@ -17,27 +17,28 @@ land = [list(map(int, sys.stdin.readline().split())) for _ in range(h)]
 
 
 def bfs():
-    # visit = [[False]*w for _ in range(h)]
-    # visit[0][0] = True
+    visit = [[[0]*(k+1) for __ in range(w)] for _ in range(h)]
+    visit[0][0][0] = 1
     q = deque()
-    q.append((0,0,0,0))
+    q.append((0,0,0))
 
     while q:
-        x, y, t, jump = q.popleft()
+        x, y, t = q.popleft()
+        if x == h-1 and y == w-1:
+            return visit[x][y][t] - 1
         for i in range(12):
             nx = x + dx[i]
             ny = y + dy[i]
-            if 0<=nx<h and 0<=ny<w and land[nx][ny] == 0:
-                # 앞뒤양옆으로 이동할 때
-                if 0<=i<4:
-                    if nx==h-1 and ny==w-1:
-                        return t+1
-                    q.append((nx,ny,t+1,jump))
-                # 눈 목 자로 이동할 때
-                elif 4<=i<12 and jump<k:
-                    if nx==h-1 and ny==w-1:
-                        return t+1
-                    q.append((nx,ny,t+1,jump+1))
+            # 앞뒤양옆으로 이동할 때
+            if 0<=i<4:
+                if 0<=nx<h and 0<=ny<w and not visit[nx][ny][t] and land[nx][ny] == 0:
+                    visit[nx][ny][t] = visit[x][y][t] + 1
+                    q.append((nx,ny,t))
+            # 눈 목 자로 이동할 때
+            elif 4<=i<12 and t < k:
+                if 0<=nx<h and 0<=ny<w and not visit[nx][ny][t+1] and land[nx][ny] == 0:
+                    visit[nx][ny][t+1] = visit[x][y][t] + 1
+                    q.append((nx,ny,t+1))
     return -1
 ans = bfs()
 print(ans)
