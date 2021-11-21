@@ -11,4 +11,3 @@ for _ in range(int(sys.stdin.readline())):
     for __ in range(b-1):
         c = c * a % 10
     print(c)
-
