@@ -5,9 +5,16 @@ DATE    : 21.11.20
 '''
 import sys
 
+rule = [1,5,6,0]
 for _ in range(int(sys.stdin.readline())):
     a, b = map(int, sys.stdin.readline().split())
-    c = a
-    for __ in range(b-1):
-        c = c * a % 10
-    print(c)
+    a %= 10
+    if a in rule:
+        if a == 0:
+            print(10)
+        else:
+            print(a)
+    else:
+        b = 4 + b%4
+        a = str(a**b)
+        print(a[-1])
